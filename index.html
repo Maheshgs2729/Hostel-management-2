@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDMCET Hostel Management System</title>
+  <meta name="description" content="SDM College of Engineering and Technology - Hostel Management System" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: { 50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#1e3a5f',600:'#172e4d',700:'#102240',800:'#0b1a30',900:'#061020' },
+            brand: { light:'#f0f4ff', DEFAULT:'#1e3a5f', dark:'#0f2440', accent:'#2563eb', soft:'#dbeafe' }
+          },
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased">
+  <div id="root"><div style="display:flex;align-items:center;justify-content:center;height:100vh;"><p style="font-size:18px;color:#64748b;">Loading SDMCET Hostel Management...</p></div></div>
+  <script>
+    // Load and transform JSX files synchronously via XHR (works on file:// protocol)
+    var scriptFiles = ['js/data.js','js/login.js','js/student.js','js/warden.js','js/management.js','js/accountant.js','js/app.js'];
+    scriptFiles.forEach(function(src) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', src, false);
+      try { xhr.send(); } catch(e) { console.error('Failed to load ' + src, e); return; }
+      if (xhr.status === 0 || xhr.status === 200) {
+        var code = xhr.responseText;
+        try {
+          var transformed = Babel.transform(code, { presets: ['env','react'] }).code;
+          var s = document.createElement('script');
+          s.textContent = transformed;
+          document.head.appendChild(s);
+        } catch(e) { console.error('Babel error in ' + src, e); }
+      }
+    });
+  </script>
+</body>
+</html>
